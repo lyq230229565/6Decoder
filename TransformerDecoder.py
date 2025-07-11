@@ -213,8 +213,9 @@ class TransformerDecoderLayer(nn.Module):
                 the causal mask. Providing incorrect hints can result in
                 incorrect execution, including forward and backward
                 compatibility.
-                如果设置tgt_is_causal=True，那么就无需输入atten_mask，MultiheadAttention会自动生成倒三角的因果掩码
-                如果想自己输入特别的atten_mask，那么就设置tgt_is_causal=False
+                If tgt_is_causal=True is set, there is no need to provide an atten_mask, 
+                as MultiheadAttention will automatically generate a triangular causal mask;
+                if you want to input a custom atten_mask, then set tgt_is_causal=False.
 
         Shape:
             see the docs in :class:`~torch.nn.Transformer`.

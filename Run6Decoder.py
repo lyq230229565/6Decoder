@@ -272,7 +272,7 @@ def generate_target(model, top_k, budget, candidate_file, batch_size=BATCH_SIZE,
 
 if __name__ == '__main__':
     '''
-    程序运行示例：
+    Run example:
     python Run6Decoder.py --seed_file=data/Seed_S1_10K_32hex.txt \
                           --model_file=data/model6decoder.pth \
                           --candidate_file=data/candidates.txt \
