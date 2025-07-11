@@ -1,11 +1,8 @@
 """
-源自 torch.nn.transformer
-    v1.0：改写了decoder，使多头注意力的k,v不使用encoder的输出，仍使用上一层的decoder的输出，以测试只使用decoder训练数据
-    v1.8：删除Encoder，修改TransformerDecoder接口，两个attention使用一样的结构，只保留一个tgt输入，无需memory
-    v1.9：修改TransformerDecoder接口，增加activation和norm_first两个参数
+    The TransformerDecoder implementation is derived from and modified based on the torch.nn.transformer code.
 """
 
-__version__ = 'v1.9'
+
 
 
 # mypy: allow-untyped-defs
@@ -227,18 +224,18 @@ class TransformerDecoderLayer(nn.Module):
         x = tgt
 
         if self.norm_first:
-            # 第1层注意力
+            # 1. Self-attention layer 1
             x = x + self._sa1_block(self.norm1(x), tgt_mask, tgt_key_padding_mask, tgt_is_causal)
-            # 第2层注意力
+            # 2. Self-attention layer 2
             x = x + self._sa2_block(self.norm2(x), tgt_mask, tgt_key_padding_mask, tgt_is_causal)
-            # 第3层前馈网络
+            # 3. Feed-forward layer
             x = x + self._ff_block(self.norm3(x))
         else:        
-            # 第1层注意力
+            # 1. Self-attention layer 1
             x = self.norm1(x + self._sa1_block(x, tgt_mask, tgt_key_padding_mask, tgt_is_causal))
-            # 第2层注意力
+            # 2. Self-attention layer 2
             x = self.norm2(x + self._sa2_block(x, tgt_mask, tgt_key_padding_mask, tgt_is_causal))
-            # 第3层前馈网络
+            # 3. Feed-forward layer
             x = self.norm3(x + self._ff_block(x))
 
         return x
