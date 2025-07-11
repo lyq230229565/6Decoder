@@ -1,4 +1,4 @@
-# 6GAN
+# 6Decoder
 
 6Decoder employs a neural network based on the Transformer Decoder, treating IPv6 addresses as textual sequences and using generative artificial intelligence to generate IPv6 candidate addresses. 
 
